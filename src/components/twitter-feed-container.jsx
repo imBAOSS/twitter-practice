@@ -28,13 +28,25 @@ let localState = {
 class TwitterFeedContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = localState;
+    this.state = {
+      tweets: localState
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(val) {
+    this.setState({
+      newTweet:  {
+        tweet_body: val.tweet_body,
+        tweet_owner: val.tweet_owner
+      }
+    })
   }
 
   render() {
     let tweets = Object.keys(this.state).map((tweet) => {
       let tweetInfo = this.state[tweet]
-      return <TweetContainer key={tweetInfo.tweet_id} tweet={ tweetInfo } />
+      return <TweetContainer key={tweetInfo.tweet_id} tweet={ tweetInfo }/>
     });
 
     return(
@@ -43,7 +55,7 @@ class TwitterFeedContainer extends React.Component {
         <ul className="tweets-container">
           { tweets }
         </ul>
-        <TweetForm />
+        <TweetForm handleSubmit={ this.handleSubmit }/>
       </div>
     )
   }

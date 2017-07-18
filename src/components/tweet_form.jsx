@@ -8,16 +8,12 @@ class TweetForm extends React.Component {
       tweet_owner: ""
     };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleSubmit(e) {
-    e.preventDefault;
-  }
 
   handleChange(key) {
-
+    return e => this.setState({ [`tweet_${key}`]: e.target.value });
   }
 
   render() {
@@ -32,7 +28,7 @@ class TweetForm extends React.Component {
           <h5>Username</h5>
           <input onChange={ this.handleChange("owner") }value={ this.state.tweet_owner }>
           </input>
-          <button onClick={ this.handleSubmit }>Submit</button>
+          <button onClick={ this.props.handleSubmit }>Submit</button>
         </form>
       </div>
     )
